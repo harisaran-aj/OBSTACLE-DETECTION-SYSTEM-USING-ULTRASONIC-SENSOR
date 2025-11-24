@@ -19,7 +19,9 @@ Tinkercad provides a simulation environment where this circuit can be virtually 
 
 
 ## Circuit Diagram:
- 
+<img width="1875" height="752" alt="image" src="https://github.com/user-attachments/assets/cd49ce97-088f-4c38-81ed-1e508662e2b7" />
+
+
 ## Procedure: //Modify the procedure based on your circuit
 
 Step 1: Set Up the Tinkercad Environment
@@ -53,10 +55,78 @@ Step 7: Save Your Work
 
 
 ## Code:
+const int buzzer = 8;
+
+int echopin = 6;
+
+int trigpin = 7;
+
+int mesafe;
+
+int sure;
+
+
+void setup()
+
+{
+  Serial.begin(9600); 
+
+  pinMode(buzzer, OUTPUT);
+
+  pinMode(trigpin, OUTPUT);
+
+  pinMode(echopin, INPUT);
+}
+
+void loop()
+{
+  digitalWrite(trigpin,LOW);
+
+  delayMicroseconds(2);
+
+  digitalWrite(trigpin,HIGH);
+
+  delayMicroseconds(10);
+
+  digitalWrite(trigpin,LOW);
+
+  
+  sure = pulseIn(echopin,HIGH);
+
+  mesafe = (sure/2)/29.0;
+
+  
+  if(mesafe <= 15)
+  {
+    tone(buzzer, 1000);  // High pitch continuous sound
+  }
+  else if(mesafe <= 20)
+  {
+    tone(buzzer, 800);   // Medium pitch continuous sound
+  }
+  else if(mesafe <= 30)
+  {
+    tone(buzzer, 600);   // Low pitch continuous sound
+  }
+  else
+  {
+    noTone(buzzer);      // Silence when far away
+  }
+
+  Serial.print("DISTANCE = ");
+
+  Serial.print(mesafe);
+
+  Serial.println("cm");
+
+  delay(200); // just for serial print stability
+}
 
 
 ## Output:
  
+<img width="1875" height="752" alt="image" src="https://github.com/user-attachments/assets/52b6632f-3c72-4c36-83a2-57ab257a4e10" />
+
 
 
 ## Result
